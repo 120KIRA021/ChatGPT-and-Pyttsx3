@@ -1,17 +1,15 @@
 import openai
 import pyttsx3
-from tok import GTP#импорт переменной с ключом
 
 class GPT:
     def __init__(self):
-        openai.api_key = GTP
+        openai.api_key = "" #your key
         self.__messages = []
 
     def request(self, task):
         self.__messages.append({'role': 'user', 'content': task})
-        print("Отправлено...")
         answer = openai.ChatCompletion.create(
-            model = 'gpt-3.5-turbo',
+            model = 'gpt-3.5-turbo',#Specify the model
             messages=self.__messages
         )
         self.__messages.append({'role': 'assistant', 'content': answer.choices[0].message.content})
@@ -25,7 +23,7 @@ if __name__ == '__main__':
     tts.setProperty("voice", "ru")
     tts.setProperty('rate', 150)
     for voice in voices:
-        if voice.name == "Victoria":#Конкретный голос
+        if voice.name == "Victoria":#specific voice
             tts.setProperty("voice", voice.id)
 
     while True:
